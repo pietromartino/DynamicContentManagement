@@ -1,31 +1,33 @@
 package download;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Query {
 	
 	private String wsName;
-	private Map<String, Boolean> variables;
+	private Map<String, Integer> input;
+	private Map<String, Integer> output;
 	
 	public Query(String wsName) {
 		this.wsName = wsName;
-		this.variables = new HashMap<>();
-	}
-
-	public Query(String wsName, Map<String, Boolean> params) {
-		this.wsName = wsName;
-		this.variables = params;
+		this.input = new HashMap<>();
+		this.output = new HashMap<>();
 	}
 	
-	public void addParameter(String variable, boolean input){
-		String var = variable.replace("?", "");
-		if ( this.variables.containsKey(var) )
-			throw new IllegalArgumentException("Variable already contained in variables");
-		this.variables.put(var, input);
+	public void addInput(String parameter, int order){
+		if ( this.input.containsKey(parameter) )
+			throw new IllegalArgumentException("Input already contained in variables");
+		input.put(parameter, order);
 	}
-
+	
+	public void addOutput(String parameter, int order){
+		if ( this.output.containsKey(parameter) )
+			throw new IllegalArgumentException("Output already contained in variables");
+		output.put(parameter, order);
+	}
+	
 	public String getWsName() {
 		return wsName;
 	}
@@ -34,32 +36,28 @@ public class Query {
 		this.wsName = wsName;
 	}
 
-	public Map<String, Boolean> getVariables() {
-		return variables;
+	public List<String> getInputs() {
+		return new ArrayList<String>(input.keySet());
 	}
 	
-	public List<String> getInputVariables() {
-		return variables.keySet().stream()
-				.filter(var -> variables.get(var) == true)
-				.collect(Collectors.toList());
+	public List<String> getOutputs() {
+		return new ArrayList<String>(output.keySet());
 	}
 	
-	public List<String> getOutputVariables() {
-		return variables.keySet().stream()
-				.filter(var -> variables.get(var) == false)
-				.collect(Collectors.toList());	
+	public Map<String, Integer> getOutputsFull() {
+		return output;
 	}
 
 	@Override
 	public String toString() {
 		String out = "WS " + wsName + " - ";
 		out += " input: ";
-		for ( String s : this.getInputVariables() ) {
+		for ( String s : this.getInputs() ) {
 			out += s + ", ";
 		}
 		out = out.substring(0, out.length()-2);
 		out += " - output: ";
-		for ( String s : this.getOutputVariables() ) {
+		for ( String s : this.getOutputs() ) {
 			out += s + ", ";
 		}
 		out = out.substring(0, out.length()-2);		
@@ -70,8 +68,8 @@ public class Query {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((variables == null) ? 0 : variables.hashCode());
-		result = prime * result + ((wsName == null) ? 0 : wsName.hashCode());
+		result = prime * result + ((input == null) ? 0 : input.hashCode());
+		result = prime * result + ((output == null) ? 0 : output.hashCode());
 		return result;
 	}
 
@@ -84,10 +82,15 @@ public class Query {
 		if (getClass() != obj.getClass())
 			return false;
 		Query other = (Query) obj;
-		if (variables == null) {
-			if (other.variables != null)
+		if (input == null) {
+			if (other.input != null)
 				return false;
-		} else if (!variables.equals(other.variables))
+		} else if (!input.equals(other.input))
+			return false;
+		if (output == null) {
+			if (other.output != null)
+				return false;
+		} else if (!output.equals(other.output))
 			return false;
 		if (wsName == null) {
 			if (other.wsName != null)
@@ -96,8 +99,5 @@ public class Query {
 			return false;
 		return true;
 	}
-	
-	
-	
 
 }

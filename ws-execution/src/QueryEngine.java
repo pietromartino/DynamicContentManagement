@@ -31,9 +31,17 @@ public class QueryEngine {
 		System.out.println();
 		
 		for ( Query q : queries ) {
+			
 		    WebService ws=WebServiceDescription.loadDescription(q.getWsName());
+
+		    //Ensure that ws outputs desired variables
+		    for ( String qOut : q.getOutputs() ) {
+		    	if ( !ws.headVariables.contains(qOut) ) 
+					throw new IllegalStateException("Query is not valid: Web Service " + ws.name  
+							+ " doesn't output desired variable " + qOut);
+		    }
 		    
-		    String fileWithCallResult = ws.getCallResult(q.getInputVariables().toArray(new String[0]));
+		    String fileWithCallResult = ws.getCallResult(q.getInputs().toArray(new String[0]));
 			System.out.println("The call is   **"+fileWithCallResult+"**");
 			String fileWithTransfResults;
 			
@@ -82,9 +90,15 @@ public class QueryEngine {
 			if ( variables.length != parts.get(1).length() )
 				throw new IllegalArgumentException("Input-Output declaration "
 						+ "and variables not matching for Query " + query);
+
+			int outputOrder = 0;
+			int inputOrder = 0;
 			
 			for ( int j = 0; j < variables.length; j++ ) {
-				q.addParameter(variables[j].trim(), parts.get(1).charAt(j) == 'i');
+				if ( parts.get(1).charAt(j) == 'i')
+					q.addInput(variables[j].trim(), inputOrder++);
+				else
+					q.addOutput(variables[j].trim(), outputOrder++);
 			}
 			
 			res.add(q);
@@ -101,8 +115,8 @@ public class QueryEngine {
 				Query prev = queries.get(i-1);
 				// Validate the query if input variables of the actual query
 				// match output of previous query
-				List<String> out = prev.getOutputVariables();
-				for ( String s : cur.getInputVariables() ) {
+				List<String> out = prev.getOutputs();
+				for ( String s : cur.getInputs() ) {
 					if ( !out.contains(s) )
 						throw new IllegalStateException("Query is not valid: input variable " 
 					+ s + "of query " + cur.getWsName() + " is not contained in output of " + prev.getWsName());

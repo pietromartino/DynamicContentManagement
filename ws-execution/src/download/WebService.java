@@ -27,16 +27,16 @@ import constants.Settings;
 public class WebService {
 
 	
-	String name;
+	public String name;
 	
 	/** the lists of fragments and variables that form the URL, on the position of variables we have the value null  **/
 	List<String> urlFragments;
 	
 	/** The head **/
-	public ArrayList<String> headVariables;  /** the order of the variables matters! 
-								The first variables should be the input variables 
-								and their order should be exactly the one required by the construction of the URL 
-								**/
+	public ArrayList<String> headVariables;		/** the order of the variables matters! 
+													The first variables should be the input variables 
+													and their order should be exactly the one required by the construction of the URL 
+												**/
 	public HashMap<String, Integer> headVariableToPosition;
 	public int numberOfInputs;
 	
@@ -49,8 +49,8 @@ public class WebService {
 		this.name=name;
 		this.urlFragments=urlFragments;
 		this.prefixes=prefixes;	
-		this.headVariables=headVariables;
 		this.headVariableToPosition=headVariableToPosition;
+		this.headVariables = headVariables;
 		this.numberOfInputs=numberInputs;
 	}
 	
@@ -192,6 +192,6 @@ public class WebService {
             }
         }
         return fileForTheResults;
-	}
+	}	
 	
 }

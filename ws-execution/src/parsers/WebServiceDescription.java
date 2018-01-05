@@ -105,7 +105,7 @@ public class WebServiceDescription {
             return new WebService(webServiceName, urlFragments, prefixes, headVariables, headVariableToPosition, numberInputs);
             
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        	e.printStackTrace();
             return null;
         } catch (SAXException e) {
             e.printStackTrace();

@@ -1,9 +1,15 @@
 package download;
 
+import java.util.List;
+
 public class QueryResult {
 	
 	private Query query;
 	
-	private 
+	public QueryResult(Query query, List<String[]> result) {
+		this.query = query;
+	}
+	
+	
 
 }

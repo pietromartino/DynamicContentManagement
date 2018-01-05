@@ -1,12 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import parsers.ParseResultsForWS;
-import parsers.WebServiceDescription;
-import download.WebService;
-
-
 public class Main {
 
 	public static final void main(String[] args) throws Exception{
