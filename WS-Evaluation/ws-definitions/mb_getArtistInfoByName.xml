@@ -21,7 +21,7 @@
    
 	<call>
 		<part type="constant" value="http://musicbrainz.org/ws/1/artist/?name="/>
-		<part type="input" variable="?artistName" class="singer" separator="+" />
+		<part type="input" variable="?artistName" class="singer" separator="+"/>
 	</call>
 	
 	<transformation file="mb_getArtistInfoByName.xsl"/>

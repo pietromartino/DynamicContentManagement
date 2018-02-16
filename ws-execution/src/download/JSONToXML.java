@@ -32,7 +32,7 @@ public class JSONToXML {
 			        XMLSerializer serializer = new XMLSerializer(); 
 	                JSON json = JSONSerializer.toJSON( jsonData ); 
 	                String xml = serializer.write( json );  
-	               /** System.out.println(xml); **/
+//	                System.out.println(xml);
 	                storeContentInFile(xml, destinationPath);
 			}
 			

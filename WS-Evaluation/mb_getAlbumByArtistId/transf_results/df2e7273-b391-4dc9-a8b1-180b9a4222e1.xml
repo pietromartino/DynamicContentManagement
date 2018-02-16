@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-2.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">6048d6ee-ee54-48e3-a7e4-dccc5a58cd0c</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Hisses and Kisses</ITEM>
+  <ITEM ANGIE-VAR="?albumYear"/></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">7881df9a-11c3-469c-9a38-a131835afcbc</ITEM>
+  <ITEM ANGIE-VAR="?albumName">American Dirt</ITEM>
+  <ITEM ANGIE-VAR="?albumYear"/></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">85283c29-2e1c-4ea4-bb08-6314ed12709f</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Couture, Baby!</ITEM>
+  <ITEM ANGIE-VAR="?albumYear"/></RECORD></RESULT>

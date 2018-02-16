@@ -3,29 +3,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Query {
 	
+	private String globalString;
 	private String wsName;
-	private Map<String, Integer> input;
-	private Map<String, Integer> output;
+	private TreeMap<Integer, String> parameters;
+	private int inputIndex=-1;
+	private Map<String, List<String>> results;
 	
-	public Query(String wsName) {
-		this.wsName = wsName;
-		this.input = new HashMap<>();
-		this.output = new HashMap<>();
+	public Query(String globalString) {
+		this.globalString = globalString;
+		this.parameters = new TreeMap<>();
+		this.results = new HashMap<>();
 	}
-	
-	public void addInput(String parameter, int order){
-		if ( this.input.containsKey(parameter) )
-			throw new IllegalArgumentException("Input already contained in variables");
-		input.put(parameter, order);
-	}
-	
-	public void addOutput(String parameter, int order){
-		if ( this.output.containsKey(parameter) )
+		
+	public void addParameter(int order, String parameter){
+		if ( this.parameters.containsKey(order) )
 			throw new IllegalArgumentException("Output already contained in variables");
-		output.put(parameter, order);
+		this.parameters.put(order, parameter);
+		//Initialize result
+		this.results.put(parameter, new ArrayList<>());
+	}
+	
+	public void addInputParameter(int order, String parameter){
+		if ( this.inputIndex != -1 )
+			throw new IllegalArgumentException("More than one input provided. Framework accepts only single input queries.");			
+		this.inputIndex = order;
+		this.addParameter(order, parameter);
 	}
 	
 	public String getWsName() {
@@ -35,29 +41,62 @@ public class Query {
 	public void setWsName(String wsName) {
 		this.wsName = wsName;
 	}
+	
+	public List<String> getParameters() {
+		return new ArrayList<String>(parameters.values());
+	}
+	
+	public String getInput() {
+		if ( this.inputIndex == -1 )
+			return null;
+		else
+			return this.parameters.get(this.inputIndex);
+	}
+	
+	public Map<Integer, String> getParameterMap() {
+		return parameters;
+	}
+	
+	public String getGlobalString() {
+		return globalString;
+	}
 
-	public List<String> getInputs() {
-		return new ArrayList<String>(input.keySet());
+	public void setGlobalString(String globalString) {
+		this.globalString = globalString;
 	}
 	
-	public List<String> getOutputs() {
-		return new ArrayList<String>(output.keySet());
+	public void addResults(ArrayList<String[]> results) {
+		for ( String[] tuple : results ) {
+			for ( int i = 0; i < tuple.length; i++ ) {
+				this.results.get(this.parameters.get(i)).add(tuple[i]);
+			}			
+		}
+	}
+
+	public String matchParameters(List<String> toMatch) {
+		for ( String otherParam : toMatch ) {
+			for ( String myParam : this.parameters.values() ) {
+				if ( myParam.equals(otherParam) )
+					return myParam;
+			}
+		}
+		//In case of no match, if we have an input we return it
+		//Otherwise return null
+		if ( this.inputIndex != -1 ) 
+			return this.parameters.get(this.inputIndex);
+		else
+			return null;
 	}
 	
-	public Map<String, Integer> getOutputsFull() {
-		return output;
+	public List<String> getResults(String parameter) {
+		return this.results.get(parameter);
 	}
 
 	@Override
 	public String toString() {
 		String out = "WS " + wsName + " - ";
-		out += " input: ";
-		for ( String s : this.getInputs() ) {
-			out += s + ", ";
-		}
-		out = out.substring(0, out.length()-2);
-		out += " - output: ";
-		for ( String s : this.getOutputs() ) {
+		out += " parameters: ";
+		for ( String s : this.getParameters() ) {
 			out += s + ", ";
 		}
 		out = out.substring(0, out.length()-2);		
@@ -68,8 +107,9 @@ public class Query {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((input == null) ? 0 : input.hashCode());
-		result = prime * result + ((output == null) ? 0 : output.hashCode());
+		result = prime * result + ((globalString == null) ? 0 : globalString.hashCode());
+		result = prime * result + ((parameters == null) ? 0 : parameters.hashCode());
+		result = prime * result + ((wsName == null) ? 0 : wsName.hashCode());
 		return result;
 	}
 
@@ -82,15 +122,15 @@ public class Query {
 		if (getClass() != obj.getClass())
 			return false;
 		Query other = (Query) obj;
-		if (input == null) {
-			if (other.input != null)
+		if (globalString == null) {
+			if (other.globalString != null)
 				return false;
-		} else if (!input.equals(other.input))
+		} else if (!globalString.equals(other.globalString))
 			return false;
-		if (output == null) {
-			if (other.output != null)
+		if (parameters == null) {
+			if (other.parameters != null)
 				return false;
-		} else if (!output.equals(other.output))
+		} else if (!parameters.equals(other.parameters))
 			return false;
 		if (wsName == null) {
 			if (other.wsName != null)

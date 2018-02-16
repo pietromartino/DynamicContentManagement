@@ -9,9 +9,11 @@ public class Main {
 //	    String fileWithCallResult = ws.getCallResult("Frank Sinatra");
 //		System.out.println("The call is   **"+fileWithCallResult+"**");
 //		ws.getTransformationResult(fileWithCallResult);
-//		
-		QueryEngine.executeQuery("mb_getArtistInfoByName(iooo)(Frank Sinatra, ?id, ?b, ?e)#mb_getAlbumByArtistId(ioo)(?id, ?aid, ?albumName)");
 		
+//		QueryEngine.executeQuery("mb_getArtistInfoByName(iooo)(Frank Sinatra, ?artistId, ?beginDate, ?endDate)"
+//				+ "#mb_getAlbumByArtistId(ioo)(?artistId, ?albumId, ?albumName)");
+		
+		QueryEngine.executeQuery("mb_getArtistInfoByName(\"Frank Sinatra\", ?id, ?b, ?e)#mb_getAlbumByArtistId(?id, ?albumId, ?albumName, ?albumYear)");
 	}
 	
 }

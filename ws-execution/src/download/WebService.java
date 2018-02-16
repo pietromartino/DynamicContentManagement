@@ -76,6 +76,7 @@ public class WebService {
 		
 		//otherwise call the web service
 		String URL=getURLForCallWithInputs(inputs);
+		System.out.println("Call String: " + URL);
 		String confirmationFileWithResult=downloadCallResults(URL, fileWithCallResult);	
 		return confirmationFileWithResult;
 
@@ -107,6 +108,7 @@ public class WebService {
 	 * @param inputs
 	 * @return the URL of the call for the given inputs 
 	 */
+	
 	public String getURLForCallWithInputs(String... inputs){
 		int i=0;
 		StringBuffer call=new StringBuffer();
@@ -132,19 +134,19 @@ public class WebService {
         Writer writer = null;
         try
         {  
-        		URL url = new URL(URL);
-        		URLConnection conn = url.openConnection();
-        		// fake a request coming from a browser in order to avoid error 403 (from discogs for instance)
-        		conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB;     rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 (.NET CLR 3.5.30729)");
-        		//conn.setRequestProperty("Accept-Charset", "UTF-8");
-        		in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    		URL url = new URL(URL);
+    		URLConnection conn = url.openConnection();
+    		// fake a request coming from a browser in order to avoid error 403 (from discogs for instance)
+    		conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB;     rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 (.NET CLR 3.5.30729)");
+    		//conn.setRequestProperty("Accept-Charset", "UTF-8");
+    		in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         		
-        		// I remove empty lines until the v1 character 
+      		// I remove empty lines until the v1 character 
             String line;
             while ((line = in.readLine()) != null ) {
                     line=line.trim();
                     if(!line.equals("")) break;
-                }
+            }
             
             // create a string writer if JSON detected 
             boolean isJSONData=false;
@@ -171,11 +173,11 @@ public class WebService {
             // if it's json data do the transformation 
             if(isJSONData) JSONToXML.transformToXML(((StringWriter)writer).toString(), fileForTheResults);    
         }catch(IOException e){ 
-        					System.out.println("Error in the download "+URL);
-        					return null;
-        				}
+			System.out.println("Error in the download "+URL);
+			return null;
+		}
         catch(Exception e ){
-        		System.out.println("Error transformation "+URL);
+        	System.out.println("Error transformation "+URL);
 			return null;	
         }
         finally

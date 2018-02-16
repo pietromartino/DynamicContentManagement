@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import download.Query;
 import download.WebService;
@@ -10,13 +8,24 @@ import parsers.WebServiceDescription;
 
 public class QueryEngine {
 
+	private static String queryFormat = "webservicename1(\"input1\", ?out1, ?out2, ?out3)" +
+										"#webservicename2(?query1output, ?out4, ?out5, ?out6)" +
+										"#webservicename3(?query2output, ?out7, ?out8) etc....\n" + 
+										"Please note that initial input should be delimited by \" \"" +
+										" and outputs should be preceded by a ?.";
+	
+	//Workflow -> Users put into the query engine xml and xsl file (that they wrote?), then they can
+	//				play around with loaded webservices as much as they like
+	
+	/* We have two levels, query level and ws level ? 
+	 * i. e: for ws that have multiple io parameters,  
+	 */
 	
 	/*
-	 * Query format: 
-	 * wsname1(iiooo)(params) # wsname2(ioooo)(params) # ....
+	 * Shortcomings : 
+	 * 1. If I have two params in query1, I don't have any mean to know which will
+	 * 		be the input of query2 if not for ordering
 	 */
-
-	//TODO enable support for other format of query : outputs are preceded by a ?, inputs are not
 	
 	public static void executeQuery(String query){
 		
@@ -30,97 +39,108 @@ public class QueryEngine {
 		System.out.println("--- QUERIES VALIDATED ---");
 		System.out.println();
 		
-		for ( Query q : queries ) {
+		for (int i = 0; i < queries.size(); i++) {
+			Query q = queries.get(i);
 			
-		    WebService ws=WebServiceDescription.loadDescription(q.getWsName());
-
-		    //Ensure that ws outputs desired variables
-		    for ( String qOut : q.getOutputs() ) {
-		    	if ( !ws.headVariables.contains(qOut) ) 
-					throw new IllegalStateException("Query is not valid: Web Service " + ws.name  
-							+ " doesn't output desired variable " + qOut);
-		    }
+			System.out.println("--- QUERY " + (i+1) + " WEBSERVICE DESCRIPTION ---");
+			WebService ws = WebServiceDescription.loadDescription(q.getWsName());
 		    
-		    String fileWithCallResult = ws.getCallResult(q.getInputs().toArray(new String[0]));
-			System.out.println("The call is   **"+fileWithCallResult+"**");
-			String fileWithTransfResults;
-			
-			try {
-				fileWithTransfResults = ws.getTransformationResult(fileWithCallResult);
-				ArrayList<String[]>  listOfTupleResult= ParseResultsForWS.showResults(fileWithTransfResults, ws);
-				
-				System.out.println("The tuple results are ");
-				for(String [] tuple:listOfTupleResult){
-					System.out.print("( ");
-				 	for(String t:tuple){
-				 		System.out.print(t+", ");
-				 	}
-				 	System.out.print(") ");
-				 	System.out.println();
-				}
-			 	
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			List<String> inputs;
+			if ( i == 0 ) {
+				inputs = new ArrayList<>();
+				inputs.add(q.getInput());
+			} else {
+				Query prev = queries.get(i-1);
+				inputs = prev.getResults(prev.matchParameters(q.getParameters()));
 			}
-
+			
+			for ( String input : inputs) {
+				String fileWithCallResult;
+			    fileWithCallResult = ws.getCallResult(input);				
+				System.out.println("QUERY " + (i+1) + " - CALL PATH: "+fileWithCallResult);
+				String fileWithTransfResults;
+				
+				try {
+					fileWithTransfResults = ws.getTransformationResult(fileWithCallResult);
+					ArrayList<String[]>  listOfTupleResult= ParseResultsForWS.showResults(fileWithTransfResults, ws);
+					
+					System.out.println(" --- QUERY " + (i+1) + " " + q.getGlobalString() + "  RESULTS ---");
+					for(String [] tuple:listOfTupleResult){
+						System.out.print("( ");
+					 	for(String t:tuple){
+					 		System.out.print(t+", ");
+					 	}
+					 	System.out.print(") ");
+					 	System.out.println();
+					}
+					q.addResults(listOfTupleResult);	
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}				
+			}
 		}
 	}
 	
-	public static List<Query> parse(String query) {
-		//Will get us the single query
-		String[] queries = query.trim().split("#");
+	public static List<Query> parse(String globalQuery) {
+		//Splits into single queries
+		String[] singleQueries = globalQuery.trim().split("#");
 		
 		List<Query> res = new ArrayList<>();
-		for ( int i = 0; i < queries.length; i++ ) {
-			List<String> parts = Arrays.asList(queries[i].trim().split("[\\(\\)]"));
-			
-			//Remove empty strings (regex malfunctioning)
-			parts = parts.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
-			
-			// Query should have 3 parts : WS Name, inputs-outputs and variables
-			if ( parts.size() != 3 ) 
-				throw new IllegalArgumentException("Wrong format for Query " + query);
-			// Initialize query with WS name			
-			Query q = new Query(parts.get(0));
-
-			String[] variables = parts.get(2).trim().split(",");
-			
-			// Query should have an in-out declaration for each variable
-			if ( variables.length != parts.get(1).length() )
-				throw new IllegalArgumentException("Input-Output declaration "
-						+ "and variables not matching for Query " + query);
-
-			int outputOrder = 0;
-			int inputOrder = 0;
-			
-			for ( int j = 0; j < variables.length; j++ ) {
-				if ( parts.get(1).charAt(j) == 'i')
-					q.addInput(variables[j].trim(), inputOrder++);
-				else
-					q.addOutput(variables[j].trim(), outputOrder++);
+		try {
+			for ( int i = 0; i < singleQueries.length; i++ ) {
+				String query = singleQueries[i];
+				String wsName = query.substring(0, query.indexOf("("));
+				String parameterStr = query.substring(query.indexOf("(")+1, query.indexOf(")")).trim();
+				String[] parameters = parameterStr.split(",");
+				
+				// Initialize query with WS name			
+				Query q = new Query(query);
+				q.setWsName(wsName);
+				
+				int paramOrder = 0;
+				
+				for ( int j = 0; j < parameters.length; j++ ) {
+					if ( parameters[j].contains("\"") ) 
+						q.addInputParameter(paramOrder++, parameters[j].replaceAll("\"", "").trim());
+					else
+						q.addParameter(paramOrder++, parameters[j].trim());
+				}
+				
+				res.add(q);				
 			}
-			
-			res.add(q);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Wrong format for Query " + globalQuery + " .\n " 
+					+ "Correct format example : " + queryFormat);				
 		}
 	
 		return res;
 	}
 	
 	public static void validate(List<Query> queries) {
+		
 		for (int i = 0; i < queries.size(); i++ ) {
 			Query cur = queries.get(i);
-			// Start validating from the second query on 
+			if ( cur.getParameters().isEmpty() )
+				throw new IllegalStateException("Query " + cur.getGlobalString() 
+					+ " doesn't contain neither inputs nor outputs.\n" 
+					+ "Query format is: " + queryFormat);
+			
+			// Start validating from second query
 			if ( i != 0 ) {
 				Query prev = queries.get(i-1);
-				// Validate the query if input variables of the actual query
-				// match output of previous query
-				List<String> out = prev.getOutputs();
-				for ( String s : cur.getInputs() ) {
-					if ( !out.contains(s) )
-						throw new IllegalStateException("Query is not valid: input variable " 
-					+ s + "of query " + cur.getWsName() + " is not contained in output of " + prev.getWsName());
-				}				
+				// Validate if at least one variable of actual query
+				// match (i.e. has the same name of) output of previous query
+				String match = prev.matchParameters(cur.getParameters());
+				if ( match == prev.getInput() ) {
+					//Second query may skip this validation, if initial
+					//input parameter is the same input as his input
+					System.out.println("## WARNING ## Assuming that input for query 2 " 
+							+ "is the same as input for query 1 : " + prev.getParameters().get(0));
+				} else if ( match == null ) 
+					throw new IllegalStateException("Query is not valid: no parameter " 
+								+ "of query " + cur.getWsName() 
+								+ " is not contained in output of " + prev.getWsName());
 			}
 		}
 	}

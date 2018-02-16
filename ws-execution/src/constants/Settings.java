@@ -2,7 +2,7 @@ package constants;
 
 public class Settings {
 
-	public static final String rootProject="D:/TPT/Dynamic Content Management/workspace/Code/WS-Evaluation/";
+	public static final String rootProject="D:/TPT/D-K905 - Dynamic Content Management/workspace/Project/WS-Evaluation/";
 	public static final String dirWithDef=rootProject+"ws-definitions/";
 	
 	
