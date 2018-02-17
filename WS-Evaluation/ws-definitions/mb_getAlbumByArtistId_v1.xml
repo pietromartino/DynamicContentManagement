@@ -24,6 +24,6 @@
 		<part type="constant" value="&amp;type=album"/>
 	</call>
 	
-	<transformation file="mb_getAlbumByArtistId.xsl"/>
+	<transformation file="mb_getAlbumByArtistId_v1.xsl"/>
 
 </ws>
