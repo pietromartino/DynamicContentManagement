@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import download.Query;
-import download.QueryResult;
+import download.CallResult;
 import download.WebService;
 import parsers.ParseResultsForWS;
 import parsers.WebServiceDescription;
@@ -10,18 +10,27 @@ import parsers.WebServiceDescription;
 public class QueryEngine {
 
 	private static String queryFormat = "webservicename1(\"input1\", ?out1, ?out2, ?out3)" +
-										"#webservicename2(?query1output, ?out4, ?out5, ?out6)" +
-										"#webservicename3(?query2output, ?out7, ?out8) etc....\n" + 
-										"Please note that initial input should be delimited by \" \"" +
-										" and outputs should be preceded by a ?. Moreover, parameter " + 
-										"names should match parameter name in webservice.";
+										"#webservicename2(?out2, ?out4, ?out5, ?out6)" +
+										"#webservicename3(?out4, ?out7, ?out8) etc....\n" + 
+										"Please note that initial input should be delimited by \" \"," +
+										" outputs should be preceded by a ? and output / input names " +
+										" should match. Moreover, parameter names in queries should " + 
+										" match parameter name in webservice.";
 	/*
 	 * Shortcomings : 
 	 * 1. If I have two params in query1, I don't have any mean to know which will
 	 * 		be the input of query2 if not for ordering
 	 */
 	
-	public static void executeQuery(String query){
+    /**
+     * @param query String containing query/queries to be executed, with format compliant with the one above
+     * @return 
+     * @return List of Queries executed, in order to allow further use / analysis
+     * Core function of query engine. Takes query/queries string, parses it in single queries and validates them.
+     * Then executes queries matching input and output.
+     */
+	
+	public static List<Query> executeQuery(String query){
 		
 		List<Query> queries = parse(query);
 		System.out.println("--- QUERIES PARSED ---");
@@ -42,8 +51,10 @@ public class QueryEngine {
 			List<String> inputs;
 			if ( i == 0 ) {
 				inputs = new ArrayList<>();
+				// First query should have an input
 				inputs.add(q.getInput());
 			} else {
+				// From second query on, retrieve input from previous queries
 				Query prev = queries.get(i-1);
 				inputs = prev.getAllResults(prev.matchParameters(q.getParameters()));
 			}
@@ -72,7 +83,7 @@ public class QueryEngine {
 						 	System.out.print(") ");
 						 	System.out.println();
 						}
-						QueryResult result = new QueryResult(q, input);
+						CallResult result = new CallResult(q, input);
 						result.addResults(listOfTupleResult, ws);
 						q.addResult(result);						
 					} else {
@@ -85,10 +96,19 @@ public class QueryEngine {
 				
 			}
 		}
+		
+		System.out.println(" --- QUERY EXECUTION TERMINATED --- ");
+		return queries;
 	}
 	
+    /**
+     * @param globalQuery general String of queries, with queries separated by '#' character
+     * @returns a list of Query objects
+     * @throws IllegalArgumentException if queries are not in a valid format
+     */
+	
 	public static List<Query> parse(String globalQuery) {
-		//Splits into single queries
+		// Split into single queries
 		String[] singleQueries = globalQuery.trim().split("#");
 		
 		List<Query> res = new ArrayList<>();
@@ -114,6 +134,7 @@ public class QueryEngine {
 				
 				res.add(q);				
 			}
+			
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Wrong format for Query " + globalQuery + " .\n " 
 					+ "Correct format example : " + queryFormat);				
@@ -121,6 +142,12 @@ public class QueryEngine {
 	
 		return res;
 	}
+	
+    /**
+     * @param queries List of single queries.
+     * Assigns output of previous queries to input of following ones
+     * @throws IllegalStateException if queries are not valid
+     */
 	
 	public static void validate(List<Query> queries) {
 		
@@ -138,8 +165,8 @@ public class QueryEngine {
 				// match (i.e. has the same name of) output of previous query
 				String match = prev.matchParameters(cur.getParameters());
 				if ( match == prev.getInput() ) {
-					//Second query may skip this validation, if initial
-					//input parameter is the same input as his input
+					// Second query may skip this validation, if initial
+					// input parameter is the same input as his input
 					System.out.println("## WARNING ## Assuming that input for query 2 " 
 							+ "is the same as input for query 1 : " + prev.getParameters().get(0));
 				} else if ( match == null ) 

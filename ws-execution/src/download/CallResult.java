@@ -5,28 +5,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QueryResult{
+public class CallResult{
+	
+	/*
+	 * Class containing results of a single web service call, mapped to query parameters
+	 */
 
 	private Query query;
 	private Map<String, List<String>> results;
 	
-	public QueryResult(Query query, String input) {
+	public CallResult(Query query, String input) {
 		this.query = query;
 		this.results = new HashMap<>();
 		
-		//Initialize result
+		//Initialize results
 		for ( String parameter : query.getParameters() ) {
 			this.results.put(parameter, new ArrayList<>());			
 		}
 	}
 	
+    /**
+     * @param results List of tuples containing query call result
+     * @param ws WebService object, needed to map results
+     * Stores call results of a query, mapping them from the WebService to the query. 
+     */
+
 	public void addResults(ArrayList<String[]> results, WebService ws) {
 		for ( String queryParam : this.query.getParameters() ) {
 			for ( String wsParam : ws.headVariableToPosition.keySet() ) {
+				// Find match between query parameters and ws ones
 				if ( queryParam.equals(wsParam) ) {
+					// Get column index in result
 					int tupleCol = ws.headVariableToPosition.get(wsParam);
+					// Get list of results corresponding to parameter
 					List<String> listRes = this.results.get(queryParam);
 					for ( String[] tuple : results ) {
+						// Add avoiding duplicates
 						for ( int i = 0; i < tuple.length; i++ ) {
 							if ( !listRes.contains(tuple[tupleCol]) ) 
 								listRes.add(tuple[tupleCol]);
@@ -63,7 +77,7 @@ public class QueryResult{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		QueryResult other = (QueryResult) obj;
+		CallResult other = (CallResult) obj;
 		if (query == null) {
 			if (other.query != null)
 				return false;
