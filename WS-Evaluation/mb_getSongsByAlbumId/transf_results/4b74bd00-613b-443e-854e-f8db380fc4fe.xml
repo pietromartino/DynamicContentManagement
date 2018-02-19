@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-1.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">123dfa9a-33d0-4818-bd62-bf55fabbdb92</ITEM>
+  <ITEM ANGIE-VAR="?songName">You Go to My Head</ITEM>
+  <ITEM ANGIE-VAR="?duration">182000</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">03170983-e5d9-4037-9288-e36f83889647</ITEM>
+  <ITEM ANGIE-VAR="?songName">These Foolish Things</ITEM>
+  <ITEM ANGIE-VAR="?duration">190173</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">31fdfc54-a11e-4cc3-8f1d-2196a54ae60d</ITEM>
+  <ITEM ANGIE-VAR="?songName">A Ghost of a Chance</ITEM>
+  <ITEM ANGIE-VAR="?duration">193173</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">0a8693bb-dfcd-4363-a543-e135252483a5</ITEM>
+  <ITEM ANGIE-VAR="?songName">I Don’t Know Why (I Just Do)</ITEM>
+  <ITEM ANGIE-VAR="?duration">168333</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">18cf97d3-8506-408c-867f-139becd38f5c</ITEM>
+  <ITEM ANGIE-VAR="?songName">Someone to Watch Over Me</ITEM>
+  <ITEM ANGIE-VAR="?duration">201760</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">10c3449f-33df-4c5c-9363-f5e82bb291c3</ITEM>
+  <ITEM ANGIE-VAR="?songName">Why Shouldn’t I?</ITEM>
+  <ITEM ANGIE-VAR="?duration">174466</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">b0ebc24a-d738-4a0b-8071-044ed68a0a93</ITEM>
+  <ITEM ANGIE-VAR="?songName">Try a Little Tenderness</ITEM>
+  <ITEM ANGIE-VAR="?duration">190000</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">bc7109f9-8467-4ea1-839a-f7b96730c236</ITEM>
+  <ITEM ANGIE-VAR="?songName">Paradise</ITEM>
+  <ITEM ANGIE-VAR="?duration"/></RECORD></RESULT>

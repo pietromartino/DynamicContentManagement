@@ -7,8 +7,9 @@
      also, for the input variables the order should match the order in the URLs of the calls
      -->
     <headVariables>
-        <variable type="inout" name="?albumId"/>
+        <variable type="output" name="?songId"/>
         <variable type="output" name="?songName"/>
+        <variable type="output" name="?duration"/>
     </headVariables>
     
 
@@ -20,8 +21,9 @@
 	<call>
 		<part type="constant" value="http://musicbrainz.org/ws/1/track/?releaseid="/>
 		<part type="input" variable="?albumId" separator="+" />
+		<part type="constant" value="&amp;fmt=xml"/>
 	</call>
 	
-	<transformation file="mb_getSongByAlbumId.xsl"/>
+	<transformation file="mb_getSongsByAlbumId.xsl"/>
 
 </ws>

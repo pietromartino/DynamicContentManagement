@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-1.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">caab1e68-2d8a-4c23-8c52-654294f8e452</ITEM>
+  <ITEM ANGIE-VAR="?songName">Santa Claus is Coming to Town</ITEM>
+  <ITEM ANGIE-VAR="?duration">154853</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">583e7ee1-91ba-42db-a8ff-7e56bb75d38f</ITEM>
+  <ITEM ANGIE-VAR="?songName">Silent Night</ITEM>
+  <ITEM ANGIE-VAR="?duration">198866</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">e5889f39-aeb6-4233-a23c-6a67bef3c1c5</ITEM>
+  <ITEM ANGIE-VAR="?songName">Adeste Fideles</ITEM>
+  <ITEM ANGIE-VAR="?duration">157720</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">13ab8a25-f61a-44c5-bc76-b117b3e66a92</ITEM>
+  <ITEM ANGIE-VAR="?songName">White Christmas</ITEM>
+  <ITEM ANGIE-VAR="?duration">204346</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">ce6d7327-7a6b-45c6-bf38-996266544d03</ITEM>
+  <ITEM ANGIE-VAR="?songName">Jingle Bells</ITEM>
+  <ITEM ANGIE-VAR="?duration">156373</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">fcf84b90-a2d8-4d6b-94a4-10aaca90b399</ITEM>
+  <ITEM ANGIE-VAR="?songName">O Little Town of Bethlehem</ITEM>
+  <ITEM ANGIE-VAR="?duration">185493</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">482f5c74-2f35-4ab0-85c3-1f27bfe823b1</ITEM>
+  <ITEM ANGIE-VAR="?songName">It Came Upon a Midnight Clear</ITEM>
+  <ITEM ANGIE-VAR="?duration">212706</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">e2b092ee-b7f9-465c-bcae-3a82685ab66c</ITEM>
+  <ITEM ANGIE-VAR="?songName">Have Yourself a Merry Little Christmas</ITEM>
+  <ITEM ANGIE-VAR="?duration">155213</ITEM></RECORD></RESULT>

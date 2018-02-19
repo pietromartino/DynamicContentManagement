@@ -9,9 +9,9 @@
         
         		 <xsl:text>&#10;</xsl:text>
                  <RECORD>
-                     <xsl:text>&#10; &#32;</xsl:text>  <ITEM ANGIE-VAR='?albumId'><xsl:value-of select="mb:release-list/mb:release/@id"/></ITEM>
+                     <xsl:text>&#10; &#32;</xsl:text>  <ITEM ANGIE-VAR='?songId'><xsl:value-of select="@id"/></ITEM>
                      <xsl:text>&#10; &#32;</xsl:text>  <ITEM ANGIE-VAR='?songName'><xsl:value-of select="mb:title"/></ITEM>
-                     
+                     <xsl:text>&#10; &#32;</xsl:text>  <ITEM ANGIE-VAR='?duration'><xsl:value-of select="mb:duration"/></ITEM>
                 </RECORD>
                
     </xsl:for-each>  

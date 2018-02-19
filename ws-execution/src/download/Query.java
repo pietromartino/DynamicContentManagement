@@ -1,6 +1,5 @@
 package download;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,20 +10,18 @@ public class Query {
 	private String wsName;
 	private TreeMap<Integer, String> parameters;
 	private int inputIndex=-1;
-	private Map<String, List<String>> results;
+	private List<QueryResult> results;
 	
 	public Query(String globalString) {
 		this.globalString = globalString;
 		this.parameters = new TreeMap<>();
-		this.results = new HashMap<>();
+		this.results = new ArrayList<>();
 	}
 		
 	public void addParameter(int order, String parameter){
 		if ( this.parameters.containsKey(order) )
 			throw new IllegalArgumentException("Output already contained in variables");
 		this.parameters.put(order, parameter);
-		//Initialize result
-		this.results.put(parameter, new ArrayList<>());
 	}
 	
 	public void addInputParameter(int order, String parameter){
@@ -65,14 +62,6 @@ public class Query {
 		this.globalString = globalString;
 	}
 	
-	public void addResults(ArrayList<String[]> results) {
-		for ( String[] tuple : results ) {
-			for ( int i = 0; i < tuple.length; i++ ) {
-				this.results.get(this.parameters.get(i)).add(tuple[i]);
-			}			
-		}
-	}
-
 	public String matchParameters(List<String> toMatch) {
 		for ( String otherParam : toMatch ) {
 			for ( String myParam : this.parameters.values() ) {
@@ -88,10 +77,24 @@ public class Query {
 			return null;
 	}
 	
-	public List<String> getResults(String parameter) {
-		return this.results.get(parameter);
+	public void addResult(QueryResult result) {
+		this.results.add(result);
 	}
-
+	
+	public List<QueryResult> getResults() {
+		return this.results;
+	}
+	
+	public List<String> getAllResults(String parameter) {
+		List<String> out = new ArrayList<>();
+		for ( QueryResult r : this.results ) {
+			List<String> res = r.getResults(parameter);
+			if ( !res.isEmpty() ) 
+				out.addAll(res);
+		}
+		return out;
+	}
+	
 	@Override
 	public String toString() {
 		String out = "WS " + wsName + " - ";

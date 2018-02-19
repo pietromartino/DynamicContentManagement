@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import download.Query;
+import download.QueryResult;
 import download.WebService;
 import parsers.ParseResultsForWS;
 import parsers.WebServiceDescription;
@@ -12,15 +13,8 @@ public class QueryEngine {
 										"#webservicename2(?query1output, ?out4, ?out5, ?out6)" +
 										"#webservicename3(?query2output, ?out7, ?out8) etc....\n" + 
 										"Please note that initial input should be delimited by \" \"" +
-										" and outputs should be preceded by a ?.";
-	
-	//Workflow -> Users put into the query engine xml and xsl file (that they wrote?), then they can
-	//				play around with loaded webservices as much as they like
-	
-	/* We have two levels, query level and ws level ? 
-	 * i. e: for ws that have multiple io parameters,  
-	 */
-	
+										" and outputs should be preceded by a ?. Moreover, parameter " + 
+										"names should match parameter name in webservice.";
 	/*
 	 * Shortcomings : 
 	 * 1. If I have two params in query1, I don't have any mean to know which will
@@ -51,33 +45,44 @@ public class QueryEngine {
 				inputs.add(q.getInput());
 			} else {
 				Query prev = queries.get(i-1);
-				inputs = prev.getResults(prev.matchParameters(q.getParameters()));
+				inputs = prev.getAllResults(prev.matchParameters(q.getParameters()));
 			}
 			
-			for ( String input : inputs) {
+			if ( inputs.isEmpty() )
+				throw new IllegalStateException("Error: no inputs for QUERY " + (i+1) 
+						+ " " + q.getGlobalString() + ". Either previous query didn't "
+						+ "return results or no matching was found between inputs and outputs.");
+			
+			for ( String input : inputs ) {
 				String fileWithCallResult;
 			    fileWithCallResult = ws.getCallResult(input);				
-				System.out.println("QUERY " + (i+1) + " - CALL PATH: "+fileWithCallResult);
 				String fileWithTransfResults;
 				
 				try {
 					fileWithTransfResults = ws.getTransformationResult(fileWithCallResult);
 					ArrayList<String[]>  listOfTupleResult= ParseResultsForWS.showResults(fileWithTransfResults, ws);
 					
-					System.out.println(" --- QUERY " + (i+1) + " " + q.getGlobalString() + "  RESULTS ---");
-					for(String [] tuple:listOfTupleResult){
-						System.out.print("( ");
-					 	for(String t:tuple){
-					 		System.out.print(t+", ");
-					 	}
-					 	System.out.print(") ");
-					 	System.out.println();
+					if ( !listOfTupleResult.isEmpty() ) {
+						System.out.println(" --- QUERY " + (i+1) + " " + q.getGlobalString() + " INPUT " + input + " RESULTS ---");
+						for(String [] tuple:listOfTupleResult){
+							System.out.print("( ");
+						 	for(String t:tuple){
+						 		System.out.print(t+", ");
+						 	}
+						 	System.out.print(") ");
+						 	System.out.println();
+						}
+						QueryResult result = new QueryResult(q, input);
+						result.addResults(listOfTupleResult, ws);
+						q.addResult(result);						
+					} else {
+						System.out.println(" --- NO RESULTS FOR QUERY " + (i+1) + " INPUT " + input + " --- ");
 					}
-					q.addResults(listOfTupleResult);	
 					
 				} catch (Exception e) {
 					e.printStackTrace();
-				}				
+				}
+				
 			}
 		}
 	}

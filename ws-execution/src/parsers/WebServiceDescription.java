@@ -96,11 +96,11 @@ public class WebServiceDescription {
             		}
             }
             
-            System.out.print("The parts of the URLs (calls):");
-            for(String part:urlFragments){
-            		System.out.print(" "+part);
-            }
-            System.out.println("");
+//            System.out.print("The parts of the URLs (calls):");
+//            for(String part:urlFragments){
+//            		System.out.print(" "+part);
+//            }
+//            System.out.println("");
             
             return new WebService(webServiceName, urlFragments, prefixes, headVariables, headVariableToPosition, numberInputs);
             

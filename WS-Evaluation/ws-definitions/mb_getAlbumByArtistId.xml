@@ -21,7 +21,7 @@
 	<call>
 		<part type="constant" value="http://musicbrainz.org/ws/2/release/?artist="/>
 		<part type="input" variable="?artistId" class="singer"/>
-		<part type="constant" value="&amp;type=album"/>
+		<part type="constant" value="&amp;type=album&amp;fmt=xml"/>
 	</call>
 	
 	<transformation file="mb_getAlbumByArtistId.xsl"/>

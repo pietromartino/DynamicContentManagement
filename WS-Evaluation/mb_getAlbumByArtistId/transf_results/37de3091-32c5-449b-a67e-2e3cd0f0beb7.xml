@@ -1,1 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-2.0#"/>
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-2.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">3d0653f5-ea30-4887-88df-9fd556d96c4f</ITEM>
+  <ITEM ANGIE-VAR="?albumName">That Face!</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">2006-06-06</ITEM></RECORD></RESULT>

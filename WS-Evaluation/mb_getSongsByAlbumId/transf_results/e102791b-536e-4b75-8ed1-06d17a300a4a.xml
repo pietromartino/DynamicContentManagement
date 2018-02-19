@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-1.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">deb1764d-5e96-41a4-aa23-eb51c02df84f</ITEM>
+  <ITEM ANGIE-VAR="?songName">White</ITEM>
+  <ITEM ANGIE-VAR="?duration">254333</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">a3dce090-4963-4632-adf0-9c23c8fba89e</ITEM>
+  <ITEM ANGIE-VAR="?songName">Green</ITEM>
+  <ITEM ANGIE-VAR="?duration">245093</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">c150c0b2-7f48-42ef-ba80-4c69e8a71140</ITEM>
+  <ITEM ANGIE-VAR="?songName">Purple</ITEM>
+  <ITEM ANGIE-VAR="?duration">261440</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">95a56368-caf7-4dd2-a1aa-72de4360d252</ITEM>
+  <ITEM ANGIE-VAR="?songName">Yellow</ITEM>
+  <ITEM ANGIE-VAR="?duration">158426</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">1d2d0a20-48cf-4af6-a8bf-0df0de691094</ITEM>
+  <ITEM ANGIE-VAR="?songName">Gray</ITEM>
+  <ITEM ANGIE-VAR="?duration">269733</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">bd62fce0-9e75-4402-9661-c2d49694d3ae</ITEM>
+  <ITEM ANGIE-VAR="?songName">Gold</ITEM>
+  <ITEM ANGIE-VAR="?duration">216000</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">a01b338b-ce5b-4cef-9f7d-892cc8abf56f</ITEM>
+  <ITEM ANGIE-VAR="?songName">Orange</ITEM>
+  <ITEM ANGIE-VAR="?duration">297106</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">e72cc9ae-26a3-4254-bb9b-b1b33fad4a42</ITEM>
+  <ITEM ANGIE-VAR="?songName">Black</ITEM>
+  <ITEM ANGIE-VAR="?duration">238066</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">e6a4d4d2-272c-436e-8203-4b8efb5b227b</ITEM>
+  <ITEM ANGIE-VAR="?songName">Silver</ITEM>
+  <ITEM ANGIE-VAR="?duration">278760</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">3c11c653-0aa9-4a48-8cf0-55d4fc3514b7</ITEM>
+  <ITEM ANGIE-VAR="?songName">Blue</ITEM>
+  <ITEM ANGIE-VAR="?duration">278933</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">c04fece2-02ec-4b08-af99-cfb377d09076</ITEM>
+  <ITEM ANGIE-VAR="?songName">Brown</ITEM>
+  <ITEM ANGIE-VAR="?duration">241640</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?songId">65cc4897-7063-40c4-b61e-89763041a5ee</ITEM>
+  <ITEM ANGIE-VAR="?songName">Red</ITEM>
+  <ITEM ANGIE-VAR="?duration">237426</ITEM></RECORD></RESULT>
