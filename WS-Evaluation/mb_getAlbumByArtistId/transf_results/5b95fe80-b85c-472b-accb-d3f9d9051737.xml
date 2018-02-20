@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-2.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">2881c8af-c51d-42fa-8324-30cfb1e4bac6</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Both Sides</ITEM>
+  <ITEM ANGIE-VAR="?albumYear"/></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">55b2eeaa-7d4b-4e2a-8bb2-fa61d4b93142</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Now &amp; Forever</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">1999-03-23</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">633f2709-797a-4fc4-9126-ef464d94454a</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Steppin' Out</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">1996</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">b1bbb5c5-3b47-434d-a776-3c952bab12e0</ITEM>
+  <ITEM ANGIE-VAR="?albumName">True Love</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">2013-02-14</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">f76022e6-dd3c-4236-a7b3-daee5e247905</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Steppin' Out</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">1998-04-07</ITEM></RECORD></RESULT>

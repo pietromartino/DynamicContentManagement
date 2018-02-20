@@ -22,7 +22,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import constants.Formatting;
 import constants.Settings;
-
+import download.Triple;
 
 public class WebService {
 

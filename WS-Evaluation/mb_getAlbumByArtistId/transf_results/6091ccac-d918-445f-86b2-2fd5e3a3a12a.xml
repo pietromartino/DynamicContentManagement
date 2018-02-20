@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-2.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">49266fa9-d899-4993-ac3a-dca3e20527ab</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Love Light</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">1981</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">93145bb2-c1b8-46e5-a01f-fceba3cfc8e8</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Yutaka</ITEM>
+  <ITEM ANGIE-VAR="?albumYear"/></RECORD></RESULT>

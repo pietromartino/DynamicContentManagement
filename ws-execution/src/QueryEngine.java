@@ -145,8 +145,8 @@ public class QueryEngine {
 	
     /**
      * @param queries List of single queries.
-     * Assigns output of previous queries to input of following ones
      * @throws IllegalStateException if queries are not valid
+     * Assigns output of previous query to input of the following one
      */
 	
 	public static void validate(List<Query> queries) {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><RESULT xmlns:mb="http://musicbrainz.org/ns/mmd-2.0#">
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">66c9353e-3c61-40c3-a6e3-386602c76368</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Up in Harlem</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">1996</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">6929eeb5-5725-48ad-a5c5-b0808c67a7a2</ITEM>
+  <ITEM ANGIE-VAR="?albumName">Christmas Carols and Sacred Songs</ITEM>
+  <ITEM ANGIE-VAR="?albumYear"/></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">6b4da447-46c1-4bf4-a432-740972d69b3a</ITEM>
+  <ITEM ANGIE-VAR="?albumName">'Tis the Season</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">1997-12-02</ITEM></RECORD>
+<RECORD>
+  <ITEM ANGIE-VAR="?albumId">7096d31c-b547-4bd5-bf07-b5a09d133a5b</ITEM>
+  <ITEM ANGIE-VAR="?albumName">The Sound of Hope</ITEM>
+  <ITEM ANGIE-VAR="?albumYear">1994-10-18</ITEM></RECORD></RESULT>
